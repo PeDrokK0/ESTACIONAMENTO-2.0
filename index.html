@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Estacionamento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header><div class="wrap">
+  <div class="brand"><span class="badge">P</span><h1>Estacionamento</h1></div>
+  <nav>
+    <button class="on" data-t="painel">Painel</button>
+    <button data-t="clientes">Clientes</button>
+    <button data-t="veiculos">Veículos</button>
+    <button data-t="precos">Preços</button>
+    <button data-t="pagamentos">Pagamentos</button>
+  </nav>
+</div></header>
+
+<!-- ===================== HTML ===================== -->
+<main class="wrap">
+  <section id="painel">
+    <div class="stats">
+      <div class="stat"><b id="sDentro">0</b><span>Veículos no pátio</span></div>
+      <div class="stat"><b id="sHoje">R$ 0,00</b><span>Recebido hoje</span></div>
+    </div>
+    <div class="card">
+      <h2>Registrar entrada</h2>
+      <form id="fEntrada">
+        <label>Placa do veículo<input id="placaEntrada" list="placas" required placeholder="ABC1D23" autocomplete="off"></label>
+        <datalist id="placas"></datalist>
+        <button class="pri">Registrar entrada</button>
+      </form>
+    </div>
+    <div class="card"><h2>No estacionamento agora</h2><div id="abertas"></div></div>
+  </section>
+
+  <section id="clientes" hidden>
+    <div class="card"><h2>Novo cliente</h2>
+      <form id="fCliente">
+        <label>Nome<input id="cNome" required></label>
+        <label>Fone<input id="cFone" type="tel"></label>
+        <label>CPF<input id="cCpf" required inputmode="numeric" placeholder="000.000.000-00"></label>
+        <button class="pri">Cadastrar</button>
+      </form>
+    </div>
+    <div class="card"><h2>Clientes</h2><div id="tClientes"></div></div>
+  </section>
+
+  <section id="veiculos" hidden>
+    <div class="card"><h2>Novo veículo</h2>
+      <form id="fVeiculo">
+        <label>Placa<input id="vPlaca" required></label>
+        <label>Modelo<input id="vModelo"></label>
+        <label>Marca<input id="vMarca"></label>
+        <label>Cor<input id="vCor"></label>
+        <label>Cliente<select id="vCliente" required></select></label>
+        <label>Tipo (preço)<select id="vPreco" required></select></label>
+        <button class="pri">Cadastrar</button>
+      </form>
+    </div>
+    <div class="card"><h2>Veículos</h2><div id="tVeiculos"></div></div>
+  </section>
+
+  <section id="precos" hidden>
+    <div class="card"><h2>Novo tipo de veículo</h2>
+      <form id="fPreco">
+        <label>Tipo<input id="pTipo" required></label>
+        <label>Valor hora (R$)<input id="pHora" type="number" step="0.01" min="0" required></label>
+        <label>Valor diária (R$)<input id="pDiaria" type="number" step="0.01" min="0" required></label>
+        <button class="pri">Cadastrar</button>
+      </form>
+    </div>
+    <div class="card"><h2>Tabela de preços</h2><div id="tPrecos"></div></div>
+  </section>
+
+  <section id="pagamentos" hidden>
+    <div class="card"><h2>Pagamentos</h2><div id="tPag"></div>
+      <p><b>Total arrecadado: <span id="totalPag">R$ 0,00</span></b></p></div>
+  </section>
+</main>
+
+<dialog id="dSaida">
+  <h2>Registrar saída</h2>
+  <div id="dInfo"></div>
+  <label>Forma de pagamento
+    <select id="dForma"><option>Dinheiro</option><option>Pix</option><option>Cartão de débito</option><option>Cartão de crédito</option></select>
+  </label>
+  <div class="row">
+    <button type="button" class="sec" id="cancelSaida">Cancelar</button>
+    <button type="button" class="pri" id="okSaida">Confirmar pagamento</button>
+  </div>
+</dialog>
+<div id="msg" role="status"></div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
